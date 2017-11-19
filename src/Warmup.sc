@@ -1,4 +1,22 @@
-/** TwinPrimes
+/** 1) Prime -----------------------------------------------------------------------------------------
+  *
+  * Takes an integer and returns a Boolean indicating whether the integer parameter is a prime number
+  * Uses Fermat's Primality Test: given a raised to n-1 mod n = b mod n,
+  *   if b == 1, n is probably prime; otherwise n is composite
+  * */
+def prime(a: Int): Boolean = {
+  a match {
+    case 1 => false
+    case 2 => true
+    case _ =>
+      modpow(2, a-1, a) match {
+        case 1 => true
+        case _ => false
+      }
+  }
+}
+
+/** modpow
   *
   * Uses repeated squaring to efficiently compute a raised to n mod m
   * */
@@ -15,33 +33,13 @@ def modpow(a: Int, n : Int, m: Int) : Int = {
   }
 }
 
-modpow(3, 69, 11)
-
-/** prime
-  *
-  * Takes an integer and returns a Boolean indicating whether the integer parameter is a prime number
-  * Uses Fermat's Primality Test: given a raised to n-1 mod n = b mod n,
-  *   if b == 1, n is probably prime; otherwise n is composite
-  * */
-def prime(a: Int): Boolean = {
-  a match {
-    case 1 => false
-    case 2 => true
-    case _ =>
-      modpow(2, a-1, a) match {
-        case 1 => true
-        case _ => false
-      }
-  }
-
-}
-
 prime(1)
 prime(3)
 prime(4)
 prime(113)
 
-/** TwinPrimes
+
+/** 2) TwinPrimes ------------------------------------------------------------------------------------
   *
   * takes 2 integer parameters and returns a Boolean indicating whether the parameters are two prime
   *   numbers with a difference of 2
@@ -52,7 +50,8 @@ twinprimes(41, 43)
 twinprimes(43, 47)
 twinprimes(107, 109)
 
-/** TwinPrimesList
+
+/** 3) TwinPrimesList --------------------------------------------------------------------------------
   *
   * takes an integer, n, parameter and returns an integer list of all the twin primes starting up to n
   * */
@@ -73,7 +72,7 @@ twinprimelist(50)
 twinprimelist(110)
 
 
-/** golbach
+/** 4) Golbach ---------------------------------------------------------------------------------------
   *
   * Takes an integer and prints the solution satisfying the Goldbach Conjecture:
   *   "every positive even number greater than 2 is the sum of two prim numbers"
@@ -86,6 +85,10 @@ def goldbach(n: Int) : String = {
   return "Result: " + n + " = " + a + " + " + (n-a)
 }
 
+/** primesuntil
+  *
+  * Creates a list of prime numbers until parameter n
+  * */
 def primesuntil(n: Int) : List[Int] = {
   n match {
     case _ if (n < 1) => List()
@@ -95,13 +98,19 @@ def primesuntil(n: Int) : List[Int] = {
 }
 
 primesuntil(28)
-primesuntil(48)
 primesuntil(4)
 
-def sums(h:Int, t: List[Int]) : List[Int] = {
-  t.map(_ + h)
-}
+/** sums
+  *
+  * Adds h to each element of list t
+  * */
+def sums(h:Int, t: List[Int]) : List[Int] = t.map(_ + h)
 
+/** getprimepair
+  *
+  * Returns the addend if found in the list of sums,
+  * otherwise, gets a new list of sums using a new h value
+  * */
 def getprimepair(n: Int, t: List[Int]): Int = {
   t match {
     case Nil => -1
@@ -109,12 +118,9 @@ def getprimepair(n: Int, t: List[Int]): Int = {
   }
 }
 
-
-
 goldbach(28)
-goldbach(36)
-goldbach(48)
 goldbach(4)
-goldbach(12)
 goldbach(82)
+goldbach(5)
+goldbach(1)
 
